@@ -16,7 +16,7 @@ class Authenticate
     public function emailExists($email)
     {
         $myDBObject = new DB();
-        $selectStatement = 'SELECT * FROM `users` WHERE email = ?';
+        $selectStatement = 'SELECT email FROM `users` WHERE email = ?';
         $queryStmtObject = $myDBObject->Connection->prepare($selectStatement);
         $queryStmtObject->bind_param('s', $email);
         $queryStmtObject->execute();
@@ -27,7 +27,7 @@ class Authenticate
     public function usernameExists($username)
     {
         $myDBObject = new DB();
-        $selectStatement = 'SELECT * FROM `users` WHERE username = ?';
+        $selectStatement = 'SELECT username FROM `users` WHERE username = ?';
         $queryStmtObject = $myDBObject->Connection->prepare($selectStatement);
         $queryStmtObject->bind_param('s', $username);
         $queryStmtObject->execute();
