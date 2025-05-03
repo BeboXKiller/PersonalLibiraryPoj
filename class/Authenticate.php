@@ -137,4 +137,13 @@ class Authenticate
             }
         }
     }
+    public function logOut(){
+        if(isset($_GET['logout'])){
+            session_unset();
+            session_destroy();
+            header(header:"location: SignIn.php");
+        }
+    }
+    
+
 }

@@ -9,7 +9,7 @@ $authObject = new \App\Authenticate();
 
 $authObject->redirectIfNotAuth();
 
-// $authObject->logout();
+$authObject->logOut();
 
 var_dump($_SESSION);
 
