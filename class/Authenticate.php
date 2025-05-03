@@ -47,6 +47,12 @@ class Authenticate
             header('location: index.php');
     }
 
+    public function redirectIfNotAuth()
+    {
+        // Used in page SignIn & SignUp
+        if (!$this->isAuth())
+            header('location: index.php');
+    }
 
     public function signUp()
     {
@@ -89,4 +95,47 @@ class Authenticate
                 Alert::PrintMessage("Failed to create your account", 'Danger');
         }
     }
+    public function signIN()
+    {
+        if (isset($_POST['signINBtn'])) {
+            $password = $_POST['password'];
+            $email = $_POST['email'];
+    
+            if (empty($password) || empty($email)) {
+                \App\Alert::PrintMessage("Email or Password is required.", 'Danger');
+                return;
+            }
+    
+            if (!$this->isValidEmail($email)) {
+                \App\Alert::PrintMessage("Please enter a valid email address", 'Danger');
+                return;
+            }
+    
+            $myDatabaseObj = new \App\DB();
+            $query = "SELECT id, username, password FROM `users` WHERE email = ?";
+            $queryObj = $myDatabaseObj->Connection->prepare($query);
+            $queryObj->bind_param('s', $email);  
+            $queryObj->execute();
+    
+            $result = $queryObj->get_result();
+    
+            if ($result->num_rows === 1) {
+                $user = $result->fetch_assoc();
+                if (password_verify($password, $user['password'])) {
+                    if (session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
+                    $_SESSION['userID'] = $user['id'];
+                    $_SESSION['userName'] = $user['username'];
+                    $this->redirectIfAuth();
+                    exit;
+                } else {
+                    \App\Alert::PrintMessage("Incorrect password", 'Danger');
+                }
+            } else {
+                \App\Alert::PrintMessage("No account found with that email", 'Danger');
+            }
+        }
+    }
+    
 }
