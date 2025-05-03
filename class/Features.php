@@ -9,6 +9,17 @@ class Features
     public function __construct()
     {
         $this->db = new \App\DB();
+        $this->checkAndAddCreatedAtColumn();
+    }
+
+    private function checkAndAddCreatedAtColumn()
+    {
+        // Check if created_at column exists
+        $result = $this->db->Connection->query("SHOW COLUMNS FROM books LIKE 'created_at'");
+        if ($result->num_rows == 0) {
+            // Add created_at column if it doesn't exist
+            $this->db->Connection->query("ALTER TABLE books ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
+        }
     }
 
     public function addBook()
@@ -54,13 +65,20 @@ class Features
         }
 
         $user_id = $_SESSION['userID'];
-        $stmt = $this->db->Connection->prepare("SELECT * FROM books WHERE user_id = ?");
+        $stmt = $this->db->Connection->prepare("SELECT id, title, author, user_id, created_at FROM books WHERE user_id = ? ORDER BY created_at DESC");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
         
         $books = [];
         while ($row = $result->fetch_assoc()) {
+            // Format the date if created_at exists
+            if (isset($row['created_at'])) {
+                $date = new \DateTime($row['created_at']);
+                $row['formatted_date'] = $date->format('M d, Y');
+            } else {
+                $row['formatted_date'] = 'N/A';
+            }
             $books[] = $row;
         }
         

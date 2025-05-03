@@ -1,0 +1,62 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.book-table {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    color: #495057;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.book-title {
+    font-weight: 500;
+    color: #212529;
+}
+
+.book-author {
+    color: #6c757d;
+}
+
+.no-books {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.no-books i {
+    font-size: 3rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.date-badge {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 0.35rem 0.65rem;
+    border-radius: 50rem;
+    font-size: 0.875rem;
+}
+
+.container {
+    max-width: 1200px;
+    padding: 2rem;
+}
+
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+} 
