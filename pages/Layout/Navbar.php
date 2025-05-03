@@ -8,9 +8,9 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="YourBooks.php">Your Books</a>
+                <a class="nav-link" href="BookShelf.php">Book Shelf</a>
             </li>
-            <li class="nav-item
+            <li class="nav-item">
                 <a class="nav-link" href="AddBooks.php">Add Books</a>
             </li>
             <?php if ((new \App\Authenticate())->isAuth()): ?>
